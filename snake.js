@@ -9,6 +9,7 @@ let ctx = canvas.getContext('2d');
 // figur fest
 let rectsize = 30 - 1;
 
+// Führt "draw()" aus
 draw();
 
 // Optik
