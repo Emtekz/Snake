@@ -67,15 +67,18 @@ function add(x, y) {
 // ----------------------------------------------
 
 function shiftSnake() {
-    for (let i = snake.length - 1; i < snake.length; i++) {
+    for (let i = snake.length - 1; i > 0; i--) {
         const part = snake[i];
-        
+        const lastPart = snake[i - 1];
+        part.x = lastPart.x;
+        part.y = lastPart.y;
+
     }
 }
 
 // Spielfunktion --------------------------------
 function gameLoop() {
-    shiftSnake();
+    testGameOver();
 
     if (foodCollected) {
         snake = [
@@ -90,6 +93,8 @@ function gameLoop() {
 
         foodCollected = false;
     }
+
+    shiftSnake();
 
     switch (direction) {
         case 'LEFT':
@@ -141,5 +146,31 @@ function placeFood() {
     let randomY = Math.floor(Math.random() * rows);
 
     food = { x: randomX, y: randomY }
+}
+
+function testGameOver() {
+    // Schlange läuft gegen Wand
+    if (snake[0].x < 0 ||
+        snake[0].x > cols - 1 ||
+        snake[0].y < 0 ||
+        snake[0].y > rows - 1) {
+
+        placeFood();
+        snake = [
+            {
+                x: 2,
+                y: 3
+            }
+        ];
+
+        direction = 'RIGHT';
+    }
+
+    // Schlange frisst sich selbst
+    let firstPart = snake[0];
+    let otherParts = snake.slice(1);
+
+    let duplicatePart = otherParts.find(part => part.x == firstPart.x &&
+                                        part.y == firstPart.y)
 }
 // ----------------------------------------------
