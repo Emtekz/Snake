@@ -149,11 +149,19 @@ function placeFood() {
 }
 
 function testGameOver() {
-    // Schlange läuft gegen Wand
+    // Schlange frisst sich selbst
+    let firstPart = snake[0];
+    let otherParts = snake.slice(1);
+
+    let duplicatePart = otherParts.find(part => part.x == firstPart.x &&
+        part.y == firstPart.y);
+
+    // Schlange läuft gegen Wand || frisst sich auf
     if (snake[0].x < 0 ||
         snake[0].x > cols - 1 ||
         snake[0].y < 0 ||
-        snake[0].y > rows - 1) {
+        snake[0].y > rows - 1 ||
+        duplicatePart) {
 
         placeFood();
         snake = [
@@ -165,12 +173,6 @@ function testGameOver() {
 
         direction = 'RIGHT';
     }
-
-    // Schlange frisst sich selbst
-    let firstPart = snake[0];
-    let otherParts = snake.slice(1);
-
-    let duplicatePart = otherParts.find(part => part.x == firstPart.x &&
-                                        part.y == firstPart.y)
 }
+
 // ----------------------------------------------
