@@ -33,7 +33,7 @@ placeFood();
 
 // Legt fest, in welchen Abständen eine Funktion
 // aufgerufen wird (100ms)
-setInterval(gameLoop, 250);
+setInterval(gameLoop, 160);
 
 document.addEventListener('keydown', keyDown);
 
@@ -48,9 +48,7 @@ function draw() {
 
     // Spielfigut/Schlange
     ctx.fillStyle = 'lightgreen';
-
     snake.forEach(part => add(part.x, part.y));
-
 
     // Äpfel/Essen
     ctx.fillStyle = 'red';
